@@ -13,12 +13,16 @@ import com.francisco.services.exception.ObjectNotFoundException;
 public class ClienteService {
 	
 	@Autowired
-	private ClienteRepository repo;
+	private ClienteRepository clienteRepository;
 	
 	public Cliente buscar(Integer id) {
-		Optional<Cliente> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName())); 
+		Optional<Cliente> result = clienteRepository.findById(id);
+		return result.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: Cliente"));
 		
+	}
+
+	public void criar(Cliente cliente) {
+		clienteRepository.save(cliente);
 	}
 }
